@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
@@ -20,6 +22,7 @@ public class FileManager {
 		final String token = "299c5fb8e6b25f3c26c2813943cba265";
 		final String stringUrl = "http://bizlab.kau.se:8280/leads/v1/currentweek";
 		StringBuilder stringBuilder = null;
+		Lead lead = null;
 		try {
 			URL url = new URL(stringUrl);
 			HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -42,7 +45,6 @@ public class FileManager {
 			  stringBuilder.append(output);
 			}
 			
-			//System.out.println(stringBuilder);
 			
 			http.disconnect();
 			
@@ -50,29 +52,58 @@ public class FileManager {
 			parse(new InputSource(new StringReader(stringBuilder.toString())));
 			NodeList nodes = doc.getElementsByTagName("lead");
 			
+			
 			for(int i = 0; i < nodes.getLength(); i++) {
 				Element e = (Element) nodes.item(i);
-				System.out.println("Name: " + e.getElementsByTagName("name").item(0).getTextContent());
-				System.out.println("Address: " + e.getElementsByTagName("address").item(0).getTextContent());
-				System.out.println("Zip: " + e.getElementsByTagName("zip").item(0).getTextContent());
-				System.out.println("City: " + e.getElementsByTagName("city").item(0).getTextContent());
-				System.out.println("Contact: " + e.getElementsByTagName("contact").item(0).getTextContent());
-				System.out.println("Tele: " + e.getElementsByTagName("tele").item(0).getTextContent());
-				System.out.println("Size: " + e.getElementsByTagName("size").item(0).getTextContent());
-				System.out.println("Current Provider: " + e.getElementsByTagName("current_provider").item(0).getTextContent());
-				System.out.println("email: " + e.getElementsByTagName("email").item(0).getTextContent());
-				System.out.println("\n");
+				String name = e.getElementsByTagName("name").item(0).getTextContent();
+				String adress = e.getElementsByTagName("address").item(0).getTextContent();
+				String zip = e.getElementsByTagName("zip").item(0).getTextContent();
+				int zipCode = Integer.parseInt(zip);
+				String city = e.getElementsByTagName("city").item(0).getTextContent();
+				String contactPerson = e.getElementsByTagName("contact").item(0).getTextContent();
+				String phoneNumber = e.getElementsByTagName("tele").item(0).getTextContent();
+				String companySize = e.getElementsByTagName("size").item(0).getTextContent();
+				String currentProvider = e.getElementsByTagName("current_provider").item(0).getTextContent();
+				String email = e.getElementsByTagName("email").item(0).getTextContent();
+				
+				lead = new Lead(name, adress, zipCode, city, contactPerson, phoneNumber, companySize, currentProvider, email);
+
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		String text = stringBuilder.toString();
 
 
 	}
 	
+
+	
+	public ArrayList<String> readSettingsFile(String path) {
+		
+		File file = new File(path);
+		ArrayList<String> array = null;
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+			
+			array = new ArrayList<String>();
+			
+			String placeHolder;
+			
+			while ((placeHolder = bufferedReader.readLine()) != null) {
+				array.add(placeHolder);
+			}
+			bufferedReader.close();
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		return array;
+	}
+	
+
 
 
 }
