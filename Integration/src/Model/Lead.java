@@ -1,9 +1,11 @@
 package Model;
+import java.io.Serializable;
 
-public class Lead {
-
-	
-	
+/*
+ * In this class we want to collect ONE lead that we can use in a list
+ * in a different class where we collect the leads.
+ * */
+public class Lead implements Serializable{
 	private String companyName; //max 40 char
 	private String adress; // max 40 char
 	private int zipCode; // 5 numbers
@@ -29,6 +31,16 @@ public class Lead {
 		this.currentProvider = currentProvider; 
 		this.email = email;
 	}
+	//Methods to return specific values of the Lead object
+	public String getCompanyName(){return companyName;}
+	public String getAdress(){return adress;}
+	public int getZipCode(){return zipCode;}
+	public String getCity(){return city;}
+	public String getContactPerson(){return contactPerson;}
+	public String getPhoneNumber(){return phoneNumber;}
+	public String getCompanySize(){return companySize;}
+	public String getCurrentProvider(){return currentProvider;}
+	public String getEmail(){return email;}
 	
 
 	
