@@ -14,6 +14,11 @@ public class Lead {
 	private String currentProvider; // max 40 char
 	private String email; // max 100 char
 	
+
+
+	public Lead() {
+		
+	}
 	
 	// Constructor to create lead-object 
 	public Lead(String companyName, String adress, int zipCode, String city, String contactPerson, String phoneNumber,
@@ -30,6 +35,17 @@ public class Lead {
 		this.email = email;
 	}
 	
+	
+	// Getters
+	public void setCompanyName(String companyName) {this.companyName = companyName;}
+	public void setAdress(String adress) {this.adress = adress;}
+	public void setZipCode(int zipCode) {this.zipCode = zipCode;}
+	public void setCity(String city) {this.city = city;}
+	public void setContactPerson(String contactPerson) {this.contactPerson = contactPerson;}
+	public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
+	public void setCompanySize(String companySize) {this.companySize = companySize;}
+	public void setCurrentProvider(String currentProvider) {this.currentProvider = currentProvider;}
+	public void setEmail(String email) {this.email = email;}
 
 	
 	
