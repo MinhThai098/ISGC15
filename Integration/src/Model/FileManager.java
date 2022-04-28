@@ -17,13 +17,24 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 public class FileManager {
+	LogManager logManager = new LogManager("logg.log");
 	
+	/**
+	 * Called to read and retrieve XML file from a HTTP url
+	 */
 	public void getXmlFile() {
+		
+		// oauth2 tokenet
 		final String token = "299c5fb8e6b25f3c26c2813943cba265";
+		
+		// HTML URL
 		final String stringUrl = "http://bizlab.kau.se:8280/leads/v1/currentweek";
+		
 		StringBuilder stringBuilder = null;
 		Lead lead = null;
 		try {
+			
+			// connects to the URL
 			URL url = new URL(stringUrl);
 			HttpURLConnection http = (HttpURLConnection)url.openConnection();
 			http.setRequestProperty("Accept", "application/json");
@@ -32,6 +43,7 @@ public class FileManager {
 			System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
 			BufferedReader bufferedReader = null;
 			
+			// Checks the responsecode. 401 is unauthorized, 200 is OK
 			if (100 <= http.getResponseCode() && http.getResponseCode() <= 399) {
 				bufferedReader = new BufferedReader(new InputStreamReader(http.getInputStream()));
 			} else {
@@ -69,9 +81,11 @@ public class FileManager {
 				lead = new Lead(name, adress, zipCode, city, contactPerson, phoneNumber, companySize, currentProvider, email);
 
 			}
+			logManager.logInfo("Success reading and retriveing XML file");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			logManager.logError("Error reading/retrive XML file");
 		}
 
 
@@ -79,26 +93,35 @@ public class FileManager {
 	}
 	
 
-	
+	/**
+	 * Called to retrieve settings in a array
+	 * @param path The path of a file
+	 * @return array A string of array containing settings.
+	 */
 	public ArrayList<String> readSettingsFile(String path) {
-		
+
 		File file = new File(path);
 		ArrayList<String> array = null;
 		try {
+			// open file
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 			
 			array = new ArrayList<String>();
 			
 			String placeHolder;
 			
+			//reading every line and appending them to an array
 			while ((placeHolder = bufferedReader.readLine()) != null) {
 				array.add(placeHolder);
 			}
 			bufferedReader.close();
+			
 
 		}catch (Exception e) {
 			e.printStackTrace();
+			logManager.logError("Error reading settings file");
 		}
+		if (array != null) {logManager.logInfo("Sucess reading settings file");}
 	
 		return array;
 	}
