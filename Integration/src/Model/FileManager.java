@@ -78,7 +78,7 @@ public class FileManager {
 				String currentProvider = e.getElementsByTagName("current_provider").item(0).getTextContent();
 				String email = e.getElementsByTagName("email").item(0).getTextContent();
 				
-				lead = new Lead(name, adress, zipCode, city, contactPerson, phoneNumber, companySize, currentProvider, email);
+			//	lead = new Lead(name, adress, zipCode, city, contactPerson, phoneNumber, companySize, currentProvider, email);
 
 			}
 			logManager.logInfo("Success reading and retriveing XML file");
