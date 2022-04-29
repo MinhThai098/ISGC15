@@ -1,60 +1,104 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Validator {
 
 	
-	
-	
-	
-	
-	public Lead validateLead(Lead nnnn) {
+	public ArrayList<Lead> validateLeads(ArrayList<Lead> leadList) {
 		
-		Lead leadToReturn = new Lead(); 
-		// testdata
-		Lead leadToValidate = new Lead("Company X AB", "Gågatan 312", 52589, "Karlstad", "Olle Svensson", "+1254-12", "5-10", "Marketing Z", "Olle@gmail.com");  
+		ArrayList<Lead> leadList2 = new ArrayList<Lead>(); 
 		
-		String companyName =     leadToValidate.getCompanyName();  				//max 40 char
+		
+		for (int i = 0; i< leadList.size(); i++) {
+			
+			 
+		}
+		
+		
+		return leadList2; 
+		
+	}
+	
+	
+	
+	public Lead validateLead(Lead leadToValidate) {
+		
+		// Must have attributes 
+		String companyName =     leadToValidate.getCompanyName();  				
+		String contactPerson =   leadToValidate.getContactPerson(); 			
+		String phoneNumber = 	 leadToValidate.getPhoneNumber(); 				
+		
 		String adress =    	     leadToValidate.getAdress(); 			// max 40 char
-		int zipCode = 	         leadToValidate.getZipCode(); 				// 5 numbers
+		String zipCode = 	     leadToValidate.getZipCode();    		// 5 numbers
 		String city =            leadToValidate.getCity(); 				// max 40 char
-		String contactPerson =   leadToValidate.getContactPerson(); 			// max 40 char MUST HAVE
-		String phoneNumber = 	 leadToValidate.getPhoneNumber(); 				// Only numbers
-		String companySize =	 leadToValidate.getCompanySize();  			// interval (ex. 5 - 20) max 20 char
+		String companySize =	 leadToValidate.getCompanySize();  		// interval (ex. 5 - 20) max 20 char
 		String currentProvider = leadToValidate.getCurrentProvider();   // max 40 char
 		String email =	 		 leadToValidate.getEmail();			    // max 100 char
 		
-
-
 		// Validating the most important attributes first
 		
-			// CompanyName 
-			if (companyName.length() <= 1) {
+			// CompanyName must have atleast 2 char
+			if (companyName.length() < 2 || !contactPerson.matches(".*[a-zA-Z]+.*")) {
 				
 				return null; 
 			}
 			
-			// ContactPerson
-			if (contactPerson.length() <= 1 ) {
-				
+			
+			// Contactperson must have atleast 2 char, and contain atleast 1 letter
+			// Regex from: https://stackoverflow.com/questions/14278170/how-to-check-whether-a-string-contains-at-least-one-alphabet-in-java
+			if (contactPerson.length() < 2 || !contactPerson.matches(".*[a-zA-Z]+.*")) {
+
 				return null; 
 			}
 	
-			// Phone Number 
+			// Phone Number must have atleast 4 char, can also contain + and -  
 			// Regex from: https://stackoverflow.com/questions/30618955/regex-to-allow-numbers-plus-symbol-minus-symbol-and-brackets
-			if (phoneNumber.length() <= 4 || !(phoneNumber.matches("^[\\d\\(\\)\\-+]+$"))) {
-	
+			if (phoneNumber.length() < 4 || !(phoneNumber.matches("^[\\d\\(\\)\\-+]+$"))) {
+
 				return null; 
 			} 
-		
-		
 
-		if (companyName.length() < 2) {
-			leadToReturn.setCompanyName(null);
-			
+			Lead leadToReturn = new Lead(); 
+
+			leadToReturn.setCompanyName(companyName);
+			leadToReturn.setAdress(adress);
+			leadToReturn.setZipCode(zipCode);
+			leadToReturn.setContactPerson(contactPerson);
+			leadToReturn.setCity(city);
+			leadToReturn.setPhoneNumber(phoneNumber);
+			leadToReturn.setCompanySize(companySize);
+			leadToReturn.setCurrentProvider(currentProvider);
+			leadToReturn.setEmail(email);
+
+		
+		if(adress.length() < 2) {
+			leadToReturn.setAdress(null);
 		}
-		// continue here... 
-			
-			
+		
+		if(zipCode.length() != 5 ) {
+			leadToReturn.setZipCode(null);
+		}
+		
+		if(city.length() < 1 ) {
+			leadToReturn.setCity(null);
+		}
+
+		if(companySize.length() < 1) {
+			leadToReturn.setCompanySize(null);
+
+		}
+		
+		if(currentProvider.length() < 1) {
+			leadToReturn.setCurrentProvider(null);
+
+		}
+		
+		if(email.length() < 1) {
+			leadToReturn.setEmail(null);
+
+		}
+		
 		// Trims attribute to desired length DO LAST
 		if (companyName.length() > 40) {  companyName = companyName.substring(0, 40); }
 		if (adress.length() > 40) {  adress = adress.substring(0, 40); }
@@ -64,9 +108,6 @@ public class Validator {
 		if (currentProvider.length() > 40) {  currentProvider = currentProvider.substring(0, 40); }
 		if (email.length() > 40) {  email = email.substring(0, 100); }
 
-		System.out.println(companyName);
-		
-		
 		
 		return leadToReturn; 
 	}

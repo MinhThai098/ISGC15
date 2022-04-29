@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Lead implements Serializable{
 	private String companyName; //max 40 char
 	private String adress; // max 40 char
-	private int zipCode; // 5 numbers
+	private String zipCode; // 5 numbers
 	private String city; // max 40 char
 	private String contactPerson; // max 40 char MUST HAVE
 	private String phoneNumber;  // Only numbers
@@ -23,7 +23,7 @@ public class Lead implements Serializable{
 	}
 	
 	// Constructor to create lead-object 
-	public Lead(String companyName, String adress, int zipCode, String city, String contactPerson, String phoneNumber,
+	public Lead(String companyName, String adress, String zipCode, String city, String contactPerson, String phoneNumber,
 			String companySize,String currentProvider, String email) {
 		super();
 		this.companyName = companyName;
@@ -39,7 +39,7 @@ public class Lead implements Serializable{
 	//Methods to return specific values of the Lead object
 	public String getCompanyName(){return companyName;}
 	public String getAdress(){return adress;}
-	public int getZipCode(){return zipCode;}
+	public String getZipCode(){return zipCode;}
 	public String getCity(){return city;}
 	public String getContactPerson(){return contactPerson;}
 	public String getPhoneNumber(){return phoneNumber;}
@@ -51,7 +51,7 @@ public class Lead implements Serializable{
 	// Getters
 	public void setCompanyName(String companyName) {this.companyName = companyName;}
 	public void setAdress(String adress) {this.adress = adress;}
-	public void setZipCode(int zipCode) {this.zipCode = zipCode;}
+	public void setZipCode(String zipCode) {this.zipCode = zipCode;}
 	public void setCity(String city) {this.city = city;}
 	public void setContactPerson(String contactPerson) {this.contactPerson = contactPerson;}
 	public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
