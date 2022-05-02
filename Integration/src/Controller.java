@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+
+import Model.DollibarConnect;
 import Model.FileManager;
 import Model.Lead;
 import Model.LogManager;
@@ -6,32 +9,33 @@ import Model.Validator;
 public class Controller {
 
 	public static void main(String[] args) {
-	//	FileManager file = new FileManager();
-	//	file.readSettingsFile("C:\\Users\\Thai\\Desktop\\settings.txt");
-		//	file.getXmlFile();
-	
 		
+		FileManager file = new FileManager();
+		//	file.readSettingsFile("C:\\Users\\Thai\\Desktop\\settings.txt");
+		ArrayList leadList = file.getXmlFile();
+		
+
 		
 		
 		Validator v = new Validator(); 
-		Lead testLead = new Lead("Company X", "Gågatan 312", "52589", "Karlstad", "Olle Svensson", "+1254-12", "5-10", "Marketing Z", "Olle@gmail.com");  
+		 ArrayList vLeadList = v.validateLeads(leadList); 
+		
+				
+		
+		for(int i = 0; i< leadList.size(); i++) {
+			System.out.println("Company name: " + ((Lead) vLeadList.get(i)).getCompanyName());
+			System.out.println("Contact person: "+((Lead) vLeadList.get(i)).getContactPerson());
+			System.out.println("Phone Number: "+((Lead) vLeadList.get(i)).getPhoneNumber());
+			System.out.println("Mail: "+((Lead) vLeadList.get(i)).getEmail()); 
+			System.out.println("Adress: "+((Lead) vLeadList.get(i)).getAdress()); 
+			System.out.println("City: "+((Lead) vLeadList.get(i)).getCity());  
 
-		Lead lead = v.validateLead(testLead); 
-		if(lead != null) {
-			System.out.println("Company name: " + lead.getCompanyName());
-			System.out.println("Contact person: "+lead.getContactPerson());
-			System.out.println("Phone Number: "+lead.getPhoneNumber());
-			System.out.println("Mail: "+lead.getEmail()); 
-			System.out.println("City: "+lead.getCity());
-			System.out.println("Zipcode: "+lead.getZipCode()); 
-			System.out.println("Address: "+lead.getAdress());
-			System.out.println("Company size: "+lead.getCompanySize()); 
-			System.out.println("Current provider: "+lead.getCurrentProvider()); 
+			System.out.println("Zipcode: "+((Lead) vLeadList.get(i)).getZipCode()); 
+			System.out.println("Company size: "+((Lead) vLeadList.get(i)).getCompanySize()); 
+			System.out.println("Current provider: "+((Lead) vLeadList.get(i)).getCurrentProvider()); 
+			System.out.println("\n"); 
 
 			
-		} else {
-			System.out.println("Lead fail");
-
 		}
 		
 		
