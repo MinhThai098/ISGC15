@@ -78,6 +78,7 @@ public class FileManager {
 				String currentProvider = e.getElementsByTagName("current_provider").item(0).getTextContent();
 				String email = e.getElementsByTagName("email").item(0).getTextContent();
 				
+				
 				lead = new Lead(name, adress, zipCode, city, contactPerson, phoneNumber, companySize, currentProvider, email);
 				leadList.add(lead); 
 
