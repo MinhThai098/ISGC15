@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class DollibarConnect {
 	
-	public static void main (String args[]) {
+	public void testConnection() {
 		System.out.println("Testing DB");
 		
 		//Try block for finding the SQL Driver
@@ -33,7 +33,11 @@ public class DollibarConnect {
 		}else {
 			System.out.println("failed");
 		}
+		
+		
+		
 	}
+	
 }
 		
 	

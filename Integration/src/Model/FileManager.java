@@ -22,7 +22,7 @@ public class FileManager {
 	/**
 	 * Called to read and retrieve XML file from a HTTP url
 	 */
-	public void getXmlFile() {
+	public ArrayList<Lead> getXmlFile() {
 		
 		// oauth2 tokenet
 		final String token = "299c5fb8e6b25f3c26c2813943cba265";
@@ -65,12 +65,12 @@ public class FileManager {
 			NodeList nodes = doc.getElementsByTagName("lead");
 			
 			
+			ArrayList<Lead> leadList = new ArrayList(); 
 			for(int i = 0; i < nodes.getLength(); i++) {
 				Element e = (Element) nodes.item(i);
 				String name = e.getElementsByTagName("name").item(0).getTextContent();
 				String adress = e.getElementsByTagName("address").item(0).getTextContent();
-				String zip = e.getElementsByTagName("zip").item(0).getTextContent();
-				int zipCode = Integer.parseInt(zip);
+				String zipCode = e.getElementsByTagName("zip").item(0).getTextContent();
 				String city = e.getElementsByTagName("city").item(0).getTextContent();
 				String contactPerson = e.getElementsByTagName("contact").item(0).getTextContent();
 				String phoneNumber = e.getElementsByTagName("tele").item(0).getTextContent();
@@ -78,14 +78,19 @@ public class FileManager {
 				String currentProvider = e.getElementsByTagName("current_provider").item(0).getTextContent();
 				String email = e.getElementsByTagName("email").item(0).getTextContent();
 				
-			//	lead = new Lead(name, adress, zipCode, city, contactPerson, phoneNumber, companySize, currentProvider, email);
+				lead = new Lead(name, adress, zipCode, city, contactPerson, phoneNumber, companySize, currentProvider, email);
+				leadList.add(lead); 
 
 			}
+			
 			logManager.logInfo("Success reading and retriveing XML file");
+			return leadList; 
+
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			logManager.logError("Error reading/retrive XML file");
+			return null; 
 		}
 
 

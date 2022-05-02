@@ -5,30 +5,34 @@ import java.util.ArrayList;
 public class Validator {
 
 	
-	public ArrayList<Lead> validateLeads(ArrayList<Lead> leadList) {
+	public ArrayList<Lead> validateLeads(ArrayList<Lead> leadListIn) {
 		
-		ArrayList<Lead> leadList2 = new ArrayList<Lead>(); 
+		ArrayList<Lead> verifiedLeadList = new ArrayList<Lead>(); 
 		
 		
-		for (int i = 0; i< leadList.size(); i++) {
-			
-			 
+		for (int i = 0; i< leadListIn.size(); i++) {
+			Lead lead = validateLead(leadListIn.get(i)); 
+			if (lead != null) {
+				verifiedLeadList.add(lead); 
+			}else {
+				System.out.println("Lead failed to validate");
+			}
 		}
 		
-		
-		return leadList2; 
+		return verifiedLeadList; 
 		
 	}
 	
 	
 	
-	public Lead validateLead(Lead leadToValidate) {
+	private Lead validateLead(Lead leadToValidate) {
 		
 		// Must have attributes 
 		String companyName =     leadToValidate.getCompanyName();  				
 		String contactPerson =   leadToValidate.getContactPerson(); 			
 		String phoneNumber = 	 leadToValidate.getPhoneNumber(); 				
 		
+		// Other attributes
 		String adress =    	     leadToValidate.getAdress(); 			// max 40 char
 		String zipCode = 	     leadToValidate.getZipCode();    		// 5 numbers
 		String city =            leadToValidate.getCity(); 				// max 40 char
