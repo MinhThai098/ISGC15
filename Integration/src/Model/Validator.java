@@ -7,6 +7,8 @@ public class Validator {
 	
 	public ArrayList<Lead> validateLeads(ArrayList<Lead> leadListIn) {
 		
+		LogManager logManager = new LogManager("logg.log");
+
 		ArrayList<Lead> verifiedLeadList = new ArrayList<Lead>(); 
 		
 		
@@ -19,6 +21,17 @@ public class Validator {
 			}
 		}
 		
+		
+		// the difference between leads in and approved leads
+		int failedLeads = leadListIn.size() -  verifiedLeadList.size(); 
+		
+		
+		logManager.logInfo("Leads are validated. " +verifiedLeadList.size() +" new leads passed" );
+		
+		
+		if (failedLeads > 0) {
+			logManager.logError(failedLeads + " leads failed to validate");
+		}
 		return verifiedLeadList; 
 		
 	}
