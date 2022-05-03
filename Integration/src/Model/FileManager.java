@@ -7,6 +7,7 @@ import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 
@@ -64,12 +65,38 @@ public class FileManager {
 
 			bufferedReader.close();
 			http.disconnect();
-
 			logManager.logInfo("Response Completed");
-
+			
+			saveLeadsInXML(stringBuilder.toString());
+			
 		} catch (Exception e) {
 			logManager.logInfo("Response Failed" + e.getMessage());
 		}
+	}
+	/**
+	 * Called upon to save all leads from HTTP to a XML file
+	 * @param leads A String that contains all leads
+	 */
+	public void saveLeadsInXML(String leads) {
+		try {
+			File leadsFile = new File("leads.xml");
+			
+			// Checking if file exists or not
+			if (!leadsFile.exists()) {
+				// Creates a new file if it does not exist
+				leadsFile.createNewFile();
+				logManager.logInfo("Created leads.xml File");
+			} else {
+				// Writing over all old leads and saving new
+				FileOutputStream writer = new FileOutputStream(leadsFile);
+				writer.write(leads.toString().getBytes());
+				logManager.logInfo("Saved leads to leads.xml File");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logManager.logError("Error saving Leads to leads.xml File");
+		}
+
 	}
 
 	//Method to read lead XML file and return the list
@@ -112,7 +139,7 @@ public class FileManager {
 			e.printStackTrace();
 			logManager.logError("Error reading/retrive XML file and creating a XML file");
 			return leadList;
-		}
+		} 
 	}
 
 	/**

@@ -11,14 +11,14 @@ public class Controller {
 	public static void main(String[] args) {
 		
 		FileManager file = new FileManager();
-		//	file.readSettingsFile("C:\\Users\\Thai\\Desktop\\settings.txt");
-		ArrayList leadList = file.getXmlFile();
+		file.getUrlResponse();
+		ArrayList leadList = file.getLeadsFromXML();
 		
 
 		
 		
 		Validator v = new Validator(); 
-		 ArrayList vLeadList = v.validateLeads(leadList); 
+		ArrayList vLeadList = v.validateLeads(leadList); 
 		
 				
 		
