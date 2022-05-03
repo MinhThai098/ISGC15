@@ -22,6 +22,7 @@ public class Validator {
 		}
 		
 		
+		
 		// the difference between leads in and approved leads
 		int failedLeads = leadListIn.size() -  verifiedLeadList.size(); 
 		
