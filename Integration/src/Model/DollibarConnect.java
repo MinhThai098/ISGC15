@@ -47,7 +47,7 @@ public class DollibarConnect {
 	}
 	
 	
-	
+	// A method to import the leads into dolibarr
 	public void importLeads(ArrayList<Lead> leadList) {
 		try {
 
@@ -75,6 +75,7 @@ public class DollibarConnect {
 		}
 	}
 	
+	// a method to remove a lead if the client status is '4' = not a client
 	public void removeLead() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
