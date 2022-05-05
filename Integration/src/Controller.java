@@ -9,16 +9,20 @@ public class Controller {
 	public static void main(String[] args) {
 		
 		FileManager file = new FileManager();
-		//	file.readSettingsFile("C:\\Users\\Thai\\Desktop\\settings.txt");
-		ArrayList leadList = file.getXmlFile();
+		file.getUrlResponse();
+		ArrayList leadList = file.getLeadsFromXML();
 		
 
 		
 		
 		Validator v = new Validator(); 
+
 		 ArrayList vLeadList = v.validateLeads(leadList); 
 		Validator validator = new Validator(); 
 		ArrayList verrifiedList = validator.validateLeads(leadList); 
+
+		ArrayList vLeadList = v.validateLeads(leadList); 
+
 		
 				
 		for(int i = 0; i< leadList.size(); i++) {
