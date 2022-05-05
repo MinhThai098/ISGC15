@@ -1,7 +1,15 @@
 package Model;
 import java.sql.*;
+import java.util.ArrayList;
+
+
+
 
 public class DollibarConnect {
+
+	
+	private LogManager logManager = new LogManager("logg.log");
+
 	
 	public void testConnection() {
 		System.out.println("Testing DB");
@@ -21,7 +29,7 @@ public class DollibarConnect {
 		//Try Block for the connection the database
 		try {
 			connection = DriverManager
-			.getConnection("jdbc:mysql://localhost:8888/dolibarr","root","root");
+			.getConnection("jdbc:mysql://localhost:3306/dolibarr","root","root");
 		}catch(SQLException e) {
 			System.out.println("connection failed");
 			e.printStackTrace();
@@ -36,6 +44,35 @@ public class DollibarConnect {
 		
 		
 		
+	}
+	
+	
+	
+	public void importLeads(ArrayList<Lead> leadList) {
+		try {
+
+			Class.forName("com.mysql.cj.jdbc.Driver"); 
+			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dolibarr","dolibarrmysql","changeme");
+			logManager.logInfo("Dolibarr conection established.");
+
+			for(int i = 0; i < leadList.size(); i++) {
+				Statement stmtInsert = con.createStatement();	
+				
+				stmtInsert.executeUpdate("INSERT INTO llx_societe (nom, name_alias, address, zip, town, phone, email, note_private, siren, client, status) values "
+						+ "('"+ leadList.get(i).getCompanyName()+"','"+ leadList.get(i).getContactPerson()+"','"+ leadList.get(i).getAdress()+"','"+ leadList.get(i).getZipCode()
+						+"','"+ leadList.get(i).getCity()+"','"+ leadList.get(i).getPhoneNumber()+"','"+ leadList.get(i).getEmail()+"','"+ leadList.get(i).getCurrentProvider()
+						+"','"+ leadList.get(i).getCompanySize()+"','"+ 2 +"','1')");
+			}
+			con.close();
+			logManager.logInfo(leadList.size() + " leads imported to dolibarr.");
+
+		}
+		
+		catch (Exception e){
+			e.printStackTrace();
+			logManager.logInfo("Dolibarr connection failed: " + e.getMessage());
+
+		}
 	}
 	
 }
