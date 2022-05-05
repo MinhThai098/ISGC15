@@ -81,7 +81,7 @@ public class DollibarConnect {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dolibarr","dolibarrmysql","changeme");
 			Statement stmtDelete = con.createStatement();
-			stmtDelete.executeUpdate("DELETE FROM 'llx_societe' where 'client' = '4'");
+			stmtDelete.executeUpdate("DELETE FROM `llx_societe` where `client` = '0'");
 			con.close();
 			logManager.logInfo(" leads with status not a client is removed.");
 			
