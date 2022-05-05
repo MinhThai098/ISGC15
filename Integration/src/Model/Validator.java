@@ -4,29 +4,29 @@ import java.util.ArrayList;
 
 public class Validator {
 
-	
+	private LogManager logManager = new LogManager("logg.log");
+
 	public ArrayList<Lead> validateLeads(ArrayList<Lead> leadListIn) {
 		
-		LogManager logManager = new LogManager("logg.log");
 
 		ArrayList<Lead> verifiedLeadList = new ArrayList<Lead>(); 
 		
 		
 		for (int i = 0; i< leadListIn.size(); i++) {
-			Lead lead = validateLead(leadListIn.get(i)); 
+			Lead lead = validateLead(leadListIn.get(i), i+1); 
 			if (lead != null) {
 				verifiedLeadList.add(lead); 
-			}else {
-				System.out.println("Lead failed to validate");
+				
 			}
 		}
+		
 		
 		
 		// the difference between leads in and approved leads
 		int failedLeads = leadListIn.size() -  verifiedLeadList.size(); 
 		
 		
-		logManager.logInfo("Leads are validated. " +verifiedLeadList.size() +" new leads passed" );
+		logManager.logInfo("Leads validated. " +verifiedLeadList.size()+"/" +leadListIn.size()  +" leads passed" );
 		
 		
 		if (failedLeads > 0) {
@@ -38,7 +38,7 @@ public class Validator {
 	
 	
 	
-	private Lead validateLead(Lead leadToValidate) {
+	private Lead validateLead(Lead leadToValidate, int leadNumber) {
 		
 		// Must have attributes 
 		String companyName =     leadToValidate.getCompanyName();  				
@@ -57,7 +57,8 @@ public class Validator {
 		
 			// CompanyName must have atleast 2 char
 			if (companyName.length() < 2 || !contactPerson.matches(".*[a-zA-Z]+.*")) {
-				
+				logManager.logError("Lead " + leadNumber+ " failed at company name: "+ companyName );
+
 				return null; 
 			}
 			
@@ -65,6 +66,7 @@ public class Validator {
 			// Contactperson must have atleast 2 char, and contain atleast 1 letter
 			// Regex from: https://stackoverflow.com/questions/14278170/how-to-check-whether-a-string-contains-at-least-one-alphabet-in-java
 			if (contactPerson.length() < 2 || !contactPerson.matches(".*[a-zA-Z]+.*")) {
+				logManager.logError("Lead " + leadNumber+ " failed at contact person" + contactPerson);
 
 				return null; 
 			}
@@ -72,6 +74,7 @@ public class Validator {
 			// Phone Number must have atleast 4 char, can also contain + and -  
 			// Regex from: https://stackoverflow.com/questions/30618955/regex-to-allow-numbers-plus-symbol-minus-symbol-and-brackets
 			if (phoneNumber.length() < 4 || !(phoneNumber.matches("^[\\d\\(\\)\\-+]+$"))) {
+				logManager.logError("Lead " + leadNumber+ " failed at phone number" + phoneNumber);
 
 				return null; 
 			} 
