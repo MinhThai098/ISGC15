@@ -6,7 +6,7 @@ public class Model {
 	
 	public void getLead() {
 		fileManager = new FileManager();
-		fileManager.getXmlFile();
+
 
 	}
 	

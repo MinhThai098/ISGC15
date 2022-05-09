@@ -3,11 +3,16 @@ import java.util.ArrayList;
 import Model.DollibarConnect;
 import Model.FileManager;
 import Model.Lead;
+import Model.Settings;
 import Model.Validator; 
 public class Controller {
 
 	public static void main(String[] args) {
 		
+		Settings settings = new Settings();
+		String path = "config.properties";
+		settings.getSettings(path);
+		/*
 		FileManager file = new FileManager();
 		file.getUrlResponse();
 		ArrayList leadList = file.getLeadsFromXML();
@@ -17,11 +22,10 @@ public class Controller {
 		
 		Validator v = new Validator(); 
 
-		 ArrayList vLeadList = v.validateLeads(leadList); 
+		ArrayList vLeadList = v.validateLeads(leadList); 
 		Validator validator = new Validator(); 
 		ArrayList verrifiedList = validator.validateLeads(leadList); 
 
-		ArrayList vLeadList = v.validateLeads(leadList); 
 
 		
 				
@@ -45,6 +49,7 @@ public class Controller {
 		DollibarConnect dolibarrConnect = new DollibarConnect(); 
 		
 		dolibarrConnect.importLeads(verrifiedList);
+		*/
 	
 	}
 
