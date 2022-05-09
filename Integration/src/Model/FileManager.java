@@ -142,35 +142,6 @@ public class FileManager {
 		} 
 	}
 
-	/**
-	 * Called to retrieve settings in a array
-	 * 
-	 * @param path The path of a file
-	 * @return array A string of array containing settings.
-	 */
 
-	/*
-	 * public ArrayList<String> readSettingsFile(String path) {
-	 * 
-	 * File file = new File(path); ArrayList<String> array = null; try { // open
-	 * file BufferedReader bufferedReader = new BufferedReader(new
-	 * FileReader(file));
-	 * 
-	 * array = new ArrayList<String>();
-	 * 
-	 * String placeHolder;
-	 * 
-	 * //reading every line and appending them to an array while ((placeHolder =
-	 * bufferedReader.readLine()) != null) { array.add(placeHolder); }
-	 * bufferedReader.close();
-	 * 
-	 * 
-	 * }catch (Exception e) { e.printStackTrace();
-	 * logManager.logError("Error reading settings file"); } if (array != null)
-	 * {logManager.logInfo("Sucess reading settings file");}
-	 * 
-	 * return array; }
-	 * 
-	 */
 
 }
