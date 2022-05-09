@@ -7,12 +7,21 @@ import Model.Settings;
 import Model.Validator; 
 public class Controller {
 
+	
+	
+	
 	public static void main(String[] args) {
 		
 		Settings settings = new Settings();
+
+		DollibarConnect dolibarrConnect = new DollibarConnect (settings); 
+		
+		
 		String path = "config.properties";
 		settings.getSettings(path);
-		/*
+		
+		
+		
 		FileManager file = new FileManager();
 		file.getUrlResponse();
 		ArrayList leadList = file.getLeadsFromXML();
@@ -45,11 +54,9 @@ public class Controller {
 			
 		}
 		
-		
-		DollibarConnect dolibarrConnect = new DollibarConnect(); 
-		
+				
 		dolibarrConnect.importLeads(verrifiedList);
-		*/
+		
 	
 	}
 
