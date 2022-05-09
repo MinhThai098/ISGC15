@@ -25,7 +25,7 @@ public class Settings {
 	 * @param path The path of a file
 	 */
 	 public void getSettings(String path) {
-	 
+		 logManager = new LogManager("logManager"); 
 		 try(InputStream input = new FileInputStream(path)){
 			 Properties properties = new Properties();
 			 
