@@ -22,14 +22,14 @@ import org.xml.sax.InputSource;
 
 public class FileManager {
 	LogManager logManager = new LogManager("logg.log");
-	private ArrayList<Lead> leadList = new ArrayList<Lead>();
 
+	
 	/**
 	 * Called to read and retrieve XML file from a HTTP url
 	 */
 
 	// Method to retrieve the response from URL
-	public void getUrlResponse() {
+	public boolean getUrlResponse() {
 
 		// oauth2 tokenet
 		final String token = "299c5fb8e6b25f3c26c2813943cba265";
@@ -68,16 +68,18 @@ public class FileManager {
 			logManager.logInfo("Response Completed");
 			
 			saveLeadsInXML(stringBuilder.toString());
+			return true; 
 			
 		} catch (Exception e) {
 			logManager.logInfo("Response Failed" + e.getMessage());
+			return false; 
 		}
 	}
 	/**
 	 * Called upon to save all leads from HTTP to a XML file
 	 * @param leads A String that contains all leads
 	 */
-	public void saveLeadsInXML(String leads) {
+	private void saveLeadsInXML(String leads) {
 		try {
 			File leadsFile = new File("leads.xml");
 			
@@ -91,6 +93,7 @@ public class FileManager {
 				FileOutputStream writer = new FileOutputStream(leadsFile);
 				writer.write(leads.toString().getBytes());
 				logManager.logInfo("Saved leads to leads.xml File");
+				writer.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,7 +104,8 @@ public class FileManager {
 
 	//Method to read lead XML file and return the list
 	public ArrayList<Lead> getLeadsFromXML() {
-
+		ArrayList<Lead> leadList = new ArrayList<Lead>();
+		
 		try {
 			File leadsFile = new File("leads.xml");
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

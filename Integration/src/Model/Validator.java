@@ -7,11 +7,10 @@ public class Validator {
 	private LogManager logManager = new LogManager("logg.log");
 
 	public ArrayList<Lead> validateLeads(ArrayList<Lead> leadListIn) {
-		
-
+	
 		ArrayList<Lead> verifiedLeadList = new ArrayList<Lead>(); 
 		
-		
+		// Loops through all leads in leadList
 		for (int i = 0; i< leadListIn.size(); i++) {
 			Lead lead = validateLead(leadListIn.get(i), i+1); 
 			if (lead != null) {
@@ -20,14 +19,10 @@ public class Validator {
 			}
 		}
 		
-		
-		
 		// the difference between leads in and approved leads
 		int failedLeads = leadListIn.size() -  verifiedLeadList.size(); 
 		
-		
 		logManager.logInfo("Leads validated. " +verifiedLeadList.size()+"/" +leadListIn.size()  +" leads passed" );
-		
 		
 		if (failedLeads > 0) {
 			logManager.logError(failedLeads + " leads failed to validate");
@@ -37,7 +32,7 @@ public class Validator {
 	}
 	
 	
-	
+	// Validates one lead
 	private Lead validateLead(Lead leadToValidate, int leadNumber) {
 		
 		// Must have attributes 
@@ -132,6 +127,31 @@ public class Validator {
 		return leadToReturn; 
 	}
 	
+	
+	// Compares two lists of leads and removes duplicates
+	public ArrayList<Lead> compareLeadLists(ArrayList<Lead> oldList, ArrayList<Lead> newList) {
+		
+		int newListInQuantity = newList.size(); 
+		
+			for (int i = 0; i< newList.size(); i++) {
+				for(int j=0; j< oldList.size(); j++) {
+					if (newList.get(i).getCompanyName().equals(oldList.get(j).getCompanyName()) &&
+						newList.get(i).getContactPerson().equals(oldList.get(j).getContactPerson()
+							)) {
+								newList.remove(i); 
+					}
+				}
+			}
+		
+			int difference = newListInQuantity - newList.size(); 
+			
+			if(difference != 0) {
+				logManager.logError(difference +"/"+ newListInQuantity +" leads already exists from last week");
+
+			}
+			
+		return newList; 
+	}
 	
 	
 	
