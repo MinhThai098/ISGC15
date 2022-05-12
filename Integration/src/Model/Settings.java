@@ -18,6 +18,8 @@ public class Settings {
 	public String dbPassword;
 	public String userEmail;
 	public String userPassword;
+	public String smtp;
+	public String port;
 	
 	private LogManager logManager;
 	
@@ -44,7 +46,8 @@ public class Settings {
 			 dbPassword = 			properties.getProperty("dbPassword");
 			 userEmail =			properties.getProperty("userEmail");
 			 userPassword =			properties.getProperty("userPassword");
-			 
+			 smtp = 				properties.getProperty("stmp");
+			 port = 				properties.getProperty("port");
 			 
 			 logManager.logInfo("Success reading Settings file");
 		 } catch (IOException e) {
