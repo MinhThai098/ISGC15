@@ -13,51 +13,66 @@ public class Controller {
 	public static void main(String[] args) {
 		
 		Settings settings = new Settings();
-
+		FileManager fileManager = new FileManager();
 		DollibarConnect dolibarrConnect = new DollibarConnect (settings); 
+		Validator validator = new Validator(); 
+	
 		
 		
+		// Configure settings
 		String path = "config.properties";
 		settings.getSettings(path);
 		
 		
-		
-		FileManager file = new FileManager();
-		file.getUrlResponse();
-		ArrayList leadList = file.getLeadsFromXML();
-		
 
-		
-		
-		Validator v = new Validator(); 
+		// Gets last saved leads from XML 
+		ArrayList<Lead> lastWeekLeadList = fileManager.getLeadsFromXML();
 
-		ArrayList vLeadList = v.validateLeads(leadList); 
-		Validator validator = new Validator(); 
-		ArrayList verrifiedList = validator.validateLeads(leadList); 
+		// Gets leads from URL		
+		Boolean isSuccessful = fileManager.getUrlResponse();
 
 
 		
-				
-		for(int i = 0; i< leadList.size(); i++) {
-			System.out.println("Company name: " + ((Lead) leadList.get(i)).getCompanyName());
-			System.out.println("Contact person: "+((Lead) leadList.get(i)).getContactPerson());
-			System.out.println("Phone Number: "+((Lead) leadList.get(i)).getPhoneNumber());
-			System.out.println("Mail: "+((Lead) leadList.get(i)).getEmail()); 
-			System.out.println("Adress: "+((Lead) leadList.get(i)).getAdress()); 
-			System.out.println("City: "+((Lead) leadList.get(i)).getCity());  
-
-			System.out.println("Zipcode: "+((Lead) leadList.get(i)).getZipCode()); 
-			System.out.println("Company size: "+((Lead) leadList.get(i)).getCompanySize()); 
-			System.out.println("Current provider: "+((Lead) leadList.get(i)).getCurrentProvider()); 
-			System.out.println("\n"); 
-
+		if(isSuccessful) {
+	
 			
+			ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
+
+			 leadList = validator.compareLeadLists(lastWeekLeadList, leadList); 
+			
+			 if(leadList.size() == 0) {
+				 // send email
+				 
+			 }else {
+					// Verifies leadList and saves it to verrifiedList
+					ArrayList<Lead> verrifiedList = validator.validateLeads(leadList); 
+					if(verrifiedList.size() != 0) {
+							dolibarrConnect.importLeads(verrifiedList);
+						}
+			 }
+
+			 
+			 
+			
+			
+		
+			
+			
+			
+			
+
+		}else {
+			
+			// send e-mail
 		}
 		
+
 				
-		dolibarrConnect.importLeads(verrifiedList);
+		
 		
 	
 	}
+	
+	
 
 }
