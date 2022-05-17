@@ -2,9 +2,13 @@ package Model;
 
 import java.util.Properties;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import javax.mail.Session;
 import javax.mail.*;  
-import javax.mail.internet.*;  
+import javax.mail.Authenticator.*; 
+
 
 public class Email {
 
@@ -18,17 +22,22 @@ public class Email {
 		Properties properties = System.getProperties();
 		
 
-		properties.setProperty("mail.smtp.host", "smtp.gmail.com");
-		properties.setProperty("mail.smtp.port", "587");
-		properties.setProperty("mail.smtp.starttls.enable", "true"); //TLS
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+		properties.put("mail.smtp.starttls.enable", "true"); //TLS
+		properties.put("mail.smtp.auth", "true");
+
+		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(Settings.userEmail, Settings.userPassword);
+            }
+        });
 		
-		Session session = Session.getInstance(properties);
-		
-		MimeMessage message = new MimeMessage (session);
+		MimeMessage message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(user));  
 	    message.addRecipient(Message.RecipientType.TO,new InternetAddress(user));  
-	    message.setSubject("Error");  
-	    message.setText("Message to be sent of the ERROR");
+	    message.setSubject(title);  
+	    message.setText(content);
 	    Transport.send(message);
 	    System.out.println("Message sent to: " + user);
 		

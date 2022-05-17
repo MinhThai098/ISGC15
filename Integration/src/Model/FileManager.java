@@ -16,7 +16,8 @@ import org.w3c.dom.NodeList;
 
 
 public class FileManager {
-	LogManager logManager = new LogManager("logg" + Settings.currentDate + ".log");
+
+	LogManager logManager = new LogManager("logg" + Settings.currentDate2 + ".log");
 
 	
 	// Method to retrieve the response from URL
@@ -67,7 +68,7 @@ public class FileManager {
 	 */
 	private void saveLeadsInXML(String leads) {
 		try {
-			File leadsFile = new File("leads" + Settings.currentDate + ".xml");
+			File leadsFile = new File("leads" + Settings.currentDate2 + ".xml");
 			
 			// Checking if file exists or not
 			if (!leadsFile.exists()) {
@@ -93,7 +94,7 @@ public class FileManager {
 		ArrayList<Lead> leadList = new ArrayList<Lead>();
 		
 		try {
-			File leadsFile = new File("leads" + Settings.currentDate + ".xml");
+			File leadsFile = new File("leads" + Settings.currentDate2 + ".xml");
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			Document doc = documentBuilder.parse(leadsFile);
