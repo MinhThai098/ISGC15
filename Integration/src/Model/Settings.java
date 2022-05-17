@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 
 public class Settings {
@@ -20,6 +21,7 @@ public class Settings {
 	public static String userPassword;
 	public static String smtp;
 	public static String port;
+	public static java.sql.Date currentDate;
 	
 	private LogManager logManager;
 	
@@ -27,7 +29,7 @@ public class Settings {
 	 * @param path The path of a file
 	 */
 	 public void getSettings(String path) {
-		 logManager = new LogManager("logManager"); 
+		 logManager = new LogManager("logg" + Settings.currentDate + ".log"); 
 		 try(InputStream input = new FileInputStream(path)){
 			 Properties properties = new Properties();
 			 
@@ -48,6 +50,9 @@ public class Settings {
 			 userPassword =			properties.getProperty("userPassword");
 			 smtp = 				properties.getProperty("stmp");
 			 port = 				properties.getProperty("port");
+			 Date today = new Date();
+			 currentDate = new java.sql.Date(today.getTime());
+
 			 
 			 logManager.logInfo("Success reading Settings file");
 		 } catch (IOException e) {
