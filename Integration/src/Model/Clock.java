@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-// Använd ej om Windows Scheduler kan användas
+// Anvï¿½nd ej om Windows Scheduler kan anvï¿½ndas
 public class Clock {
 
 	
@@ -18,37 +18,44 @@ public class Clock {
 	
 	}
 	
-
+/**
+ * Called upon to check if the time is right to get leads from URL
+ */
 	public void checkTime() {
 		
-			TimerTask task = new TimerTask() {  
-			Calendar today = Calendar.getInstance();
+		Calendar currentTime = Calendar.getInstance();
+		int hours = 1; // change to settings for what time to get leads!
+		
+		if(currentTime.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+			if(currentTime.get(Calendar.HOUR_OF_DAY) == hours) {
 
-			@Override  
-		    public void run() {  
-
-
-				if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-					
-					// get leadlist
-					
+				return;
+			} else {
+				try {
+					TimeUnit.MINUTES.sleep(60);
+					//TimeUnit.HOURS.sleep(1);
+					checkTime();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				
+			}
+
 			
-			};  
-		};  
+		} else {
+			try {
+				TimeUnit.MINUTES.sleep(60);
+				//TimeUnit.HOURS.sleep(1);
+				checkTime();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		
 		
 		     
-	Calendar today = Calendar.getInstance();
-	today.set(Calendar.HOUR_OF_DAY, hour);
-	today.set(Calendar.MINUTE, 36);
-	today.set(Calendar.SECOND, 00);
-
-	Timer timer = new Timer();
-	timer.schedule(task, today.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)); 
-
 		
 		
 	
