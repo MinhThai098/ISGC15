@@ -11,15 +11,8 @@ public class DollibarConnect {
 
 	
 	private LogManager logManager = new LogManager("logg.log");
-	private Settings settings; 
-	
-	public DollibarConnect(Settings settings) {
+
 		
-		this.settings = settings; 
-		
-		
-		
-	}
 	
 	public ArrayList<Lead> getLeads(){
 		
@@ -28,7 +21,7 @@ public class DollibarConnect {
 		try {
 
 			Class.forName("com.mysql.cj.jdbc.Driver"); 
-			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+ settings.port +"/dolibarr", settings.dbName , settings.dbPassword);
+			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+ settings.port +"/dolibarr", Settings.dbName , Settings.dbPassword);
 			logManager.logInfo("Dolibarr conection established.");
 		
 			Statement statement = con.createStatement();	
@@ -68,11 +61,14 @@ public class DollibarConnect {
 	}
 
 
+
 	public void importLeads(ArrayList<Lead> leadList) {
 		try {
 
 			Class.forName("com.mysql.cj.jdbc.Driver"); 
-			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+ settings.port +"/dolibarr", settings.dbName , settings.dbPassword);
+
+			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+ Settings.port +"/dolibarr", Settings.dbName , Settings.dbPassword);
+
 			logManager.logInfo("Dolibarr conection established.");
 		
 			Statement statement = con.createStatement();	
@@ -109,7 +105,7 @@ public class DollibarConnect {
 	public void removeLead() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dolibarr",settings.dbName, settings.dbPassword);
+			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dolibarr",Settings.dbName, Settings.dbPassword);
 			Statement stmtDelete = con.createStatement();
 			stmtDelete.executeUpdate("DELETE FROM `llx_societe` where `client` = '0'");
 			con.close();

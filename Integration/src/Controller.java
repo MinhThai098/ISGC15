@@ -14,7 +14,7 @@ public class Controller {
 		
 		Settings settings = new Settings();
 		FileManager fileManager = new FileManager();
-		DollibarConnect dolibarrConnect = new DollibarConnect (settings); 
+		DollibarConnect dolibarrConnect = new DollibarConnect(); 
 		Validator validator = new Validator(); 
 		
 		
@@ -49,14 +49,6 @@ public class Controller {
 							dolibarrConnect.removeLead();
 				}
 			 }
-
-			 
-			 
-			
-			
-		
-			
-			
 			
 			
 
