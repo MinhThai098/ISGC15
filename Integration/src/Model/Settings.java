@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class Settings {
-	public String webscraperEmail;
-	public String customerEmail;
-	public String httpURL;
-	public String oauth2;
-	public String dbName;
-	public String dbPassword;
-	public String userEmail;
-	public String userPassword;
-	public String smtp;
-	public String port;
+	public static String webscraperEmail;
+	public static String customerEmail;
+	public static String httpURL;
+	public static String oauth2;
+	public static String dbName;
+	public static String dbPassword;
+	public static String userEmail;
+	public static String userPassword;
+	public static String smtp;
+	public static String port;
 	
 	private LogManager logManager;
 	

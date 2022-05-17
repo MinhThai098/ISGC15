@@ -1,24 +1,19 @@
 package Model;
 
 import java.io.BufferedReader;
-
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.util.ArrayList;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
+
 
 public class FileManager {
 	LogManager logManager = new LogManager("logg.log");
@@ -32,19 +27,19 @@ public class FileManager {
 	public boolean getUrlResponse() {
 
 		// oauth2 tokenet
-		final String token = "299c5fb8e6b25f3c26c2813943cba265";
+		//final String token = "299c5fb8e6b25f3c26c2813943cba265";
 
 		// HTML URL
-		final String stringUrl = "http://bizlab.kau.se:8280/leads/v1/currentweek";
+		//final String stringUrl = "http://bizlab.kau.se:8280/leads/v1/currentweek";
 
 		StringBuilder stringBuilder = null;
 		try {
 
 			// connects to the URL
-			URL url = new URL(stringUrl);
+			URL url = new URL(Settings.httpURL);
 			HttpURLConnection http = (HttpURLConnection) url.openConnection();
 			http.setRequestProperty("Accept", "application/json");
-			http.setRequestProperty("Authorization", "Bearer " + token);
+			http.setRequestProperty("Authorization", "Bearer " + Settings.oauth2);
 
 			System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
 			BufferedReader bufferedReader = null;
