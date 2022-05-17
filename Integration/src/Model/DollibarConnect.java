@@ -1,5 +1,7 @@
 package Model;
-import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -19,13 +21,58 @@ public class DollibarConnect {
 		
 	}
 	
+	public ArrayList<Lead> getLeads(){
+		
+		ArrayList<Lead> leadList = new ArrayList<Lead>(); 
+	
+		try {
+
+			Class.forName("com.mysql.cj.jdbc.Driver"); 
+			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+ settings.port +"/dolibarr", settings.dbName , settings.dbPassword);
+			logManager.logInfo("Dolibarr conection established.");
+		
+			Statement statement = con.createStatement();	
+		     ResultSet results = statement.executeQuery("SELECT * FROM llx_societe");
+
+		     
+		     while (results.next())
+		      {
+		    	 
+
+		    	Lead lead = new Lead(); 
+		    	lead.setCompanyName(results.getString("nom")); 
+		    	lead.setContactPerson(results.getString("name_alias")); 
+		    	lead.setCity(results.getString("town")); 
+		    	lead.setZipCode(results.getString("zip")); 
+		    	lead.setAdress(results.getString("address")); 
+		    	lead.setEmail(results.getString("email")); 
+		    	lead.setPhoneNumber(results.getString("siren")); 
+		    	lead.setCurrentProvider(results.getString("siret")); 
+
+		    	leadList.add(lead); 
+		      }
+				
+			
+			con.close();
+			logManager.logInfo("Fetched last weeks leads from dolibarr");
+		}
+		
+		catch (Exception e){
+			e.printStackTrace();
+			logManager.logInfo("Dolibarr connection failed: " + e.getMessage());
+
+		}
+			
+		return leadList; 	
+		
+	}
 
 
 	public void importLeads(ArrayList<Lead> leadList) {
 		try {
 
 			Class.forName("com.mysql.cj.jdbc.Driver"); 
-			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dolibarr", settings.dbName , settings.dbPassword);
+			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+ settings.port +"/dolibarr", settings.dbName , settings.dbPassword);
 			logManager.logInfo("Dolibarr conection established.");
 		
 			Statement statement = con.createStatement();	

@@ -16,7 +16,6 @@ public class Controller {
 		FileManager fileManager = new FileManager();
 		DollibarConnect dolibarrConnect = new DollibarConnect (settings); 
 		Validator validator = new Validator(); 
-	
 		
 		
 		// Configure settings
@@ -24,9 +23,8 @@ public class Controller {
 		settings.getSettings(path);
 		
 		
+		ArrayList<Lead> lastWeekLeadList = dolibarrConnect.getLeads(); 
 
-		// Gets last saved leads from XML 
-		ArrayList<Lead> lastWeekLeadList = fileManager.getLeadsFromXML();
 
 		// Gets leads from URL		
 		Boolean isSuccessful = fileManager.getUrlResponse();
@@ -35,7 +33,7 @@ public class Controller {
 		
 		if(isSuccessful) {
 	
-			
+		
 			ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
 
 			 leadList = validator.compareLeadLists(lastWeekLeadList, leadList); 
@@ -48,7 +46,8 @@ public class Controller {
 					ArrayList<Lead> verrifiedList = validator.validateLeads(leadList); 
 					if(verrifiedList.size() != 0) {
 							dolibarrConnect.importLeads(verrifiedList);
-						}
+							dolibarrConnect.removeLead();
+				}
 			 }
 
 			 
