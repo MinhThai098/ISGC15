@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DollibarConnect {
 
 	
-	private LogManager logManager = new LogManager("logg.log");
+	private LogManager logManager = new LogManager("logg" + Settings.currentDate + ".log");;
 
 		
 	

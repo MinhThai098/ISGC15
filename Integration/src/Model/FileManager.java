@@ -16,21 +16,12 @@ import org.w3c.dom.NodeList;
 
 
 public class FileManager {
-	LogManager logManager = new LogManager("logg.log");
+	LogManager logManager = new LogManager("logg" + Settings.currentDate + ".log");
 
 	
-	/**
-	 * Called to read and retrieve XML file from a HTTP url
-	 */
-
 	// Method to retrieve the response from URL
 	public boolean getUrlResponse() {
 
-		// oauth2 tokenet
-		//final String token = "299c5fb8e6b25f3c26c2813943cba265";
-
-		// HTML URL
-		//final String stringUrl = "http://bizlab.kau.se:8280/leads/v1/currentweek";
 
 		StringBuilder stringBuilder = null;
 		try {
@@ -76,7 +67,7 @@ public class FileManager {
 	 */
 	private void saveLeadsInXML(String leads) {
 		try {
-			File leadsFile = new File("leads.xml");
+			File leadsFile = new File("leads" + Settings.currentDate + ".xml");
 			
 			// Checking if file exists or not
 			if (!leadsFile.exists()) {
@@ -102,7 +93,7 @@ public class FileManager {
 		ArrayList<Lead> leadList = new ArrayList<Lead>();
 		
 		try {
-			File leadsFile = new File("leads.xml");
+			File leadsFile = new File("leads" + Settings.currentDate + ".xml");
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			Document doc = documentBuilder.parse(leadsFile);
