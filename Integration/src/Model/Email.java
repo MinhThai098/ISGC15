@@ -16,8 +16,8 @@ public class Email {
 	public void sendEmail(String title, String content) {
 		try {
 		
-		  final String user="integrationlion2022@gmail.com";
-		  final String password="Lion2022"; 
+		//  final String user="integrationlion2022@gmail.com";
+		// final String password="Lion2022"; 
 		
 		Properties properties = System.getProperties();
 		
@@ -33,13 +33,21 @@ public class Email {
             }
         });
 		
+
 		MimeMessage message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(user));  
 	    message.addRecipient(Message.RecipientType.TO,new InternetAddress(user));  
 	    message.setSubject(title);  
 	    message.setText(content);
+
+		MimeMessage message = new MimeMessage (session);
+		message.setFrom(new InternetAddress(Settings.userEmail));  
+	    message.addRecipient(Message.RecipientType.TO,new InternetAddress(Settings.userEmail));  
+	    message.setSubject("Error");  
+	    message.setText("Message to be sent of the ERROR");
+
 	    Transport.send(message);
-	    System.out.println("Message sent to: " + user);
+	    System.out.println("Message sent to: " + Settings.userEmail);
 		
 		}catch(Exception e) {
 			e.printStackTrace();
