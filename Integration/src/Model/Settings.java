@@ -22,6 +22,7 @@ public class Settings {
 	public static String smtp;
 	public static String port;
 	public static java.sql.Date currentDate;
+	public static String currentDate2; 
 	
 	private LogManager logManager;
 	
@@ -52,8 +53,8 @@ public class Settings {
 			 port = 				properties.getProperty("port");
 			 Date today = new Date();
 			 currentDate = new java.sql.Date(today.getTime());
-
-			 
+			 currentDate2 = currentDate.toString();
+			 System.out.println(currentDate2);
 			 logManager.logInfo("Success reading Settings file");
 		 } catch (IOException e) {
 			 e.printStackTrace();
