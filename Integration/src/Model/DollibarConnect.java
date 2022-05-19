@@ -9,8 +9,14 @@ import java.util.ArrayList;
 
 public class DollibarConnect {
 
+	private LogManager logManager; 
 	
-	private LogManager logManager = new LogManager("logg" + Settings.currentDate + ".log");;
+	
+	public DollibarConnect(LogManager logManager) {
+		
+		
+		this.logManager = logManager; 
+	}
 
 		
 	
@@ -21,8 +27,8 @@ public class DollibarConnect {
 		try {
 
 			Class.forName("com.mysql.cj.jdbc.Driver"); 
-			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+ settings.port +"/dolibarr", Settings.dbName , Settings.dbPassword);
-			logManager.logInfo("Dolibarr conection established.");
+			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+ Settings.port +"/dolibarr", Settings.dbName , Settings.dbPassword);
+			logManager.logInfo("Dolibarr connection established.");
 		
 			Statement statement = con.createStatement();	
 		     ResultSet results = statement.executeQuery("SELECT * FROM llx_societe");
@@ -30,8 +36,6 @@ public class DollibarConnect {
 		     
 		     while (results.next())
 		      {
-		    	 
-
 		    	Lead lead = new Lead(); 
 		    	lead.setCompanyName(results.getString("nom")); 
 		    	lead.setContactPerson(results.getString("name_alias")); 
@@ -101,6 +105,7 @@ public class DollibarConnect {
 
 		}
 	}
+	
 	
 	public void removeLead() {
 		try {

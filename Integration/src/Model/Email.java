@@ -11,7 +11,16 @@ import javax.mail.Authenticator.*;
 
 
 public class Email {
+	
+	
+	private LogManager logManager;
+	
 
+	public Email(LogManager logManager) {
+		
+		
+		this.logManager = logManager; 
+	}
 	
 	public void sendEmail(String title, String content) {
 		try {
@@ -35,20 +44,13 @@ public class Email {
 		
 
 		MimeMessage message = new MimeMessage(session);
-		message.setFrom(new InternetAddress(user));  
-	    message.addRecipient(Message.RecipientType.TO,new InternetAddress(user));  
+		message.setFrom(new InternetAddress(Settings.userEmail));  
+	    message.addRecipient(Message.RecipientType.TO,new InternetAddress(Settings.userEmail));  
 	    message.setSubject(title);  
 	    message.setText(content);
 
-		MimeMessage message = new MimeMessage (session);
-		message.setFrom(new InternetAddress(Settings.userEmail));  
-	    message.addRecipient(Message.RecipientType.TO,new InternetAddress(Settings.userEmail));  
-	    message.setSubject("Error");  
-	    message.setText("Message to be sent of the ERROR");
-
 	    Transport.send(message);
-	    System.out.println("Message sent to: " + Settings.userEmail);
-		
+		logManager.logInfo("Message sent to: " + Settings.userEmail);
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

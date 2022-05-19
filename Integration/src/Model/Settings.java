@@ -26,11 +26,21 @@ public class Settings {
 	
 	private LogManager logManager;
 	
+	
+	
+	public Settings(LogManager logManager) {
+		
+		
+		this.logManager = logManager; 
+	}
+
+	
+	
+	
 	/** Called upon to read the properties of a config file and add its properties to variables
 	 * @param path The path of a file
 	 */
 	 public void getSettings(String path) {
-		 logManager = new LogManager("logg" + Settings.currentDate + ".log"); 
 		 try(InputStream input = new FileInputStream(path)){
 			 Properties properties = new Properties();
 			 

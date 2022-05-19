@@ -4,8 +4,18 @@ import java.util.ArrayList;
 
 public class Validator {
 
-	private LogManager logManager = new LogManager("logg.log");
 
+	
+	private LogManager logManager;
+	
+
+	public Validator(LogManager logManager) {
+		
+		
+		this.logManager = logManager; 
+	}
+	
+	
 	public ArrayList<Lead> validateLeads(ArrayList<Lead> leadListIn) {
 	
 		ArrayList<Lead> verifiedLeadList = new ArrayList<Lead>(); 
