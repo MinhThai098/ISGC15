@@ -45,28 +45,32 @@ public class FileManager {
 			System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
 			BufferedReader bufferedReader = null;
 
-			// Checks the responsecode. 401 is unauthorized, 200 is OK
-			if (100 <= http.getResponseCode() && http.getResponseCode() <= 399) {
+			// if the response code is 200 (Successful), get input stream otherwise get the error stream 
+			if (http.getResponseCode() == 200) {
 				bufferedReader = new BufferedReader(new InputStreamReader(http.getInputStream()));
 			} else {
 				bufferedReader = new BufferedReader(new InputStreamReader(http.getErrorStream()));
-			}
-
+			} 
 			stringBuilder = new StringBuilder();
 			String output;
-
+			
+			//reading each line of the stream and initialize/appending it to the stringBuilder 
 			while ((output = bufferedReader.readLine()) != null) {
 				stringBuilder.append(output);
 			}
-
+			//closing down the reader and closing down the connection to the http
 			bufferedReader.close();
 			http.disconnect();
+			
+			//logging when the response is completed
 			logManager.logInfo("Response Completed");
 			
+			//calling to the method saveLeadsInXML() and sending in the stringBuilder converted to a String
 			saveLeadsInXML(stringBuilder.toString());
 			return true; 
 			
 		} catch (Exception e) {
+			//logging if the response failed
 			logManager.logInfo("Response Failed" + e.getMessage());
 			return false; 
 		}
@@ -112,7 +116,13 @@ public class FileManager {
 
 			for (int i = 0; i < nodes.getLength(); i++) {
 				Node node = nodes.item(i);
-
+				
+				/*
+				 * if the type is a correct node element
+				 * we create a string variable for each column, and initialise it with the text content inside the node element
+				 * we then create a new lead object with values for each column and add our lead to an our ArrayList (leadList)
+				 * */
+				 
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					Element e = (Element)node;
 					String name = e.getElementsByTagName("name").item(0).getTextContent();
@@ -131,12 +141,13 @@ public class FileManager {
 				}
 
 			}
-
+			//logging the success
 			logManager.logInfo("Success reading and retriveing XML file");
 			return leadList;
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			//logging the errors and creating an XML file if non-existent  
 			logManager.logError("Error reading/retrive XML file and creating a XML file");
 			return leadList;
 		} 
