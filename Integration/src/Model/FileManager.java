@@ -17,8 +17,17 @@ import org.w3c.dom.NodeList;
 
 public class FileManager {
 
-	LogManager logManager = new LogManager("logg" + Settings.currentDate2 + ".log");
 
+	private LogManager logManager;
+	
+
+	public FileManager(LogManager logManager) {
+		
+		
+		this.logManager = logManager; 
+	}
+	
+	
 	
 	// Method to retrieve the response from URL
 	public boolean getUrlResponse() {

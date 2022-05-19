@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.Date;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -12,12 +13,16 @@ public class LogManager {
 	private FileHandler fileHandler; 
 	private Logger logger; 
 	
-	public LogManager(String fileName) {
+	public LogManager() {
 		
 		try {
 			
+			// gets todays date
+			Date today = new Date();
+			Date currentDate = new java.sql.Date(today.getTime());
+			
 			// creates a logger and connect logfile to it
-			fileHandler = new FileHandler(fileName, true); 
+			fileHandler = new FileHandler("log " + currentDate + ".log", true); 
 			logger = Logger.getLogger("logger"); 
 			logger.addHandler(fileHandler);
 			
