@@ -31,8 +31,8 @@ public class Email {
 		Properties properties = System.getProperties();
 		
 
-		properties.put("mail.smtp.host", "smtp.gmail.com");
-		properties.put("mail.smtp.port", "587");
+		properties.put("mail.smtp.host", Settings.smtp);
+		properties.put("mail.smtp.port", Settings.emailPort);
 		properties.put("mail.smtp.starttls.enable", "true"); //TLS
 		properties.put("mail.smtp.auth", "true");
 
