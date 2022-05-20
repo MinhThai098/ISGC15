@@ -6,15 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Benzin/Desktop/mysql-connector-java-8.0.29.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Thai/Documents/GitHub/isgc15-lion/Integration/src/javax.mail.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Thai/Documents/GitHub/isgc15-lion/Integration/src/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,9 +1,6 @@
 package Model;
 
-import java.lang.ModuleLayer.Controller;
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 // Anv�nd ej om Windows Scheduler kan anv�ndas
@@ -18,14 +15,14 @@ public class Clock {
 		Calendar currentTime = Calendar.getInstance();
 		
 		// Checks if the current day is monday or not else it will sleep according to the property file and run the method again
-		if(currentTime.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+		if(currentTime.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
 			// checks if the current time is according to the property file or else sleep and run the method again
-			if(currentTime.get(Calendar.HOUR_OF_DAY) == Integer.parseInt(Settings.getLeadTime)) {
+			if(currentTime.get(Calendar.HOUR_OF_DAY) == Settings.getLeadTime) {
 				return;
 			} else {
 				try {
-					TimeUnit.MINUTES.sleep(Integer.parseInt(Settings.intervalMinute));
-
+					System.out.println("waiting...");
+					TimeUnit.MINUTES.sleep(Settings.intervalMinute);
 					checkTime();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -34,8 +31,8 @@ public class Clock {
 			}
 		} else {
 			try {
-
-				TimeUnit.HOURS.sleep(Integer.parseInt(Settings.intervalHour));
+				System.out.println("waiting....");
+				TimeUnit.HOURS.sleep(Settings.intervalHour);
 				checkTime();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
