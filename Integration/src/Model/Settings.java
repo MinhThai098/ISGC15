@@ -28,6 +28,7 @@ public class Settings {
 	public static String emailPort;
 	public static java.sql.Date currentDate;
 	public static String currentDate2; 
+	public static boolean isSuccessful = false;
 	
 	private LogManager logManager;
 	
