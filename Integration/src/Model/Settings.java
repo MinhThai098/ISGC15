@@ -1,19 +1,15 @@
 package Model;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
 public class Settings {
-	public static String getLeadTime;
-	public static String intervalHour;
-	public static String intervalMinute;
+	public static int getLeadTime;
+	public static int intervalHour;
+	public static int intervalMinute;
 	public static String calendarDay;
 	public static String webscraperEmail;
 	public static String customerEmail;
@@ -28,7 +24,7 @@ public class Settings {
 	public static String emailPort;
 	public static java.sql.Date currentDate;
 	public static String currentDate2; 
-	public static boolean isSuccessful = false;
+
 	
 	private LogManager logManager;
 	
@@ -61,9 +57,9 @@ public class Settings {
 				 
 			 }
 			 // loads variables from the properties
-			 getLeadTime =			properties.getProperty("getLeadTime");
-			 intervalHour =			properties.getProperty("intervalHour");
-			 intervalMinute = 		properties.getProperty("intervalMinute");
+			 getLeadTime =			Integer.parseInt(properties.getProperty("getLeadTime"));
+			 intervalHour =			Integer.parseInt(properties.getProperty("intervalHour"));
+			 intervalMinute = 		Integer.parseInt(properties.getProperty("intervalMinute"));
 			 webscraperEmail =		properties.getProperty("webscraperEmail");
 			 customerEmail = 		properties.getProperty("customerEmail");
 			 httpURL = 				properties.getProperty("httpURL");

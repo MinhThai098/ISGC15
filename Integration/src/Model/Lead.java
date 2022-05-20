@@ -6,6 +6,8 @@ import java.io.Serializable;
  * in a different class where we collect the leads.
  * */
 public class Lead implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private String companyName; //max 40 char
 	private String adress; // max 40 char
 	private String zipCode; // 5 numbers

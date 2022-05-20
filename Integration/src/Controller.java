@@ -38,6 +38,7 @@ public static void main(String[] args) {
 
 		Clock clock = new Clock();
 		Boolean isSuccessful = false;
+		int amount = 0;
 		
 		// while loop to ensure it tries to get XML document from HTTP URL more than once.
 		while (!isSuccessful){
@@ -48,6 +49,15 @@ public static void main(String[] args) {
 			if (!isSuccessful) {
 				//send e-mail
 				email.sendEmail("Integration Lion error", "Could not download files from webscrapers' URL. Check the latest log file for more info");
+			}
+			
+			// adds every minute that passes
+			amount += Settings.intervalMinute;
+			boolean isDivisbleBy60 = amount % 60 == 0;
+			
+			// if hour passes and it still not possible to retrieve xml file it will add hours to getleadtime.
+			if (isDivisbleBy60) {
+				Settings.getLeadTime += amount % 60;
 			}
 			
 		}
@@ -96,4 +106,4 @@ public static void main(String[] args) {
 
 		
 	}
-	
+}
