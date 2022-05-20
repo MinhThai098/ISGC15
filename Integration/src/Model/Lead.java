@@ -24,6 +24,16 @@ public class Lead implements Serializable{
 		
 	}
 	
+	@Override
+    public boolean equals(Object anObject) {
+        if (!(anObject instanceof Lead)) {
+            return false;
+        }
+        Lead lead = (Lead)anObject;
+        return lead.getCompanyName().equals(getCompanyName());
+    }
+
+	
 	// Constructor to create lead-object 
 	public Lead(String companyName, String adress, String zipCode, String city, String contactPerson, String phoneNumber,
 			String companySize,String currentProvider, String email) {

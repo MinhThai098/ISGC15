@@ -18,8 +18,11 @@ public class DollibarConnect {
 		this.logManager = logManager; 
 	}
 
-		
-	
+	/*
+	 * Get leads from lead list 
+	 * Saving objects in variables 
+	 * */		
+
 	public ArrayList<Lead> getLeads(){
 		
 		ArrayList<Lead> leadList = new ArrayList<Lead>(); 
@@ -64,6 +67,7 @@ public class DollibarConnect {
 		
 	}
 
+	// Insert LeadList to table.
 
 
 	public void importLeads(ArrayList<Lead> leadList) {
@@ -106,7 +110,9 @@ public class DollibarConnect {
 		}
 	}
 	
-	
+  
+	// Remove leads that have client status 0
+
 	public void removeLead() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
