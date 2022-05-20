@@ -5,8 +5,8 @@ public class Model {
 	private FileManager fileManager;
 	
 	public void getLead() {
-		fileManager = new FileManager();
 
+		
 
 	}
 	

@@ -141,18 +141,17 @@ public class Validator {
 	// Compares two lists of leads and removes duplicates
 	public ArrayList<Lead> compareLeadLists(ArrayList<Lead> oldList, ArrayList<Lead> newList) {
 		
+		
+		
+		System.out.println("new: "+ newList.size());
+		System.out.println("old: "+ oldList.size());
+
 		int newListInQuantity = newList.size(); 
-		
-			for (int i = 0; i< newList.size(); i++) {
-				for(int j=0; j< oldList.size(); j++) {
-					if (newList.get(i).getCompanyName().equals(oldList.get(j).getCompanyName()) &&
-						newList.get(i).getContactPerson().equals(oldList.get(j).getContactPerson()
-							)) {
-								newList.remove(i); 
-					}
-				}
-			}
-		
+	
+		ArrayList<Lead> uniques = new ArrayList<Lead>(newList);
+		uniques.removeAll(oldList); 
+			
+			
 			int difference = newListInQuantity - newList.size(); 
 			
 			if(difference != 0) {
@@ -160,7 +159,8 @@ public class Validator {
 
 			}
 			
-		return newList; 
+			System.out.println("uniq: " +uniques.size());
+		return uniques; 
 	}
 	
 	
