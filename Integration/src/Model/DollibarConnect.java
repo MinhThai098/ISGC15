@@ -20,13 +20,21 @@ public class DollibarConnect {
 
 	/*
 	 * Get leads from lead list 
-	 * Saving objects in variables 
+	 * Saving objects in variables
+	 * return a leadList 
 	 * */		
 
 	public ArrayList<Lead> getLeads(){
 		
 		ArrayList<Lead> leadList = new ArrayList<Lead>(); 
-	
+		
+		/*
+		 * The 'try' begins with establishing the connection with dolibarr and logging when successful.
+		 * We then establish the communication with the table llx_societe where we select the columns needed
+		 * and linking our setters from Lead.java with the columns from the table and later adding them to our ArrayList leadList.
+		 * 
+		 * The 'catch' catch and logs all the errors and if the connection with dolibarr somehow failed.
+		 * */
 		try {
 
 			Class.forName("com.mysql.cj.jdbc.Driver"); 
@@ -67,7 +75,11 @@ public class DollibarConnect {
 		
 	}
 
-	// Insert LeadList to table.
+	/*
+	 * This method once again establish the connection with dolibarr but this time inserting the values from our ArrayList leadList
+	 * into the table llx_societe by using our getters from our Lead class.
+	 * It logs when the leads has been successfully imported to dolibarr and logging when failed to do so
+	 * */
 
 
 	public void importLeads(ArrayList<Lead> leadList) {
@@ -111,7 +123,11 @@ public class DollibarConnect {
 	}
 	
   
-	// Remove leads that have client status 0
+	/*
+	 * This method is removing a lead from the table llx_societe / Dolibarr when a lead has the client value as 0.
+	 * The value = 0, is a value that indicates that a lead is not a customer or not interested to be a customer.
+	 * The method is logging when successful and also when failed to remove a lead
+	 * */
 
 	public void removeLead() {
 		try {
