@@ -23,7 +23,7 @@ public class Lead implements Serializable{
 	public Lead() {
 		
 	}
-	
+	// Compare CompanyName with CompanyName
 	@Override
     public boolean equals(Object anObject) {
         if (!(anObject instanceof Lead)) {
@@ -48,7 +48,12 @@ public class Lead implements Serializable{
 		this.currentProvider = currentProvider; 
 		this.email = email;
 	}
-	//Methods to return specific values of the Lead object
+	
+	/*
+	 * Methods to return specific values of the Lead object
+	 * Getters
+	 * */
+	
 	public String getCompanyName(){return companyName;}
 	public String getAdress(){return adress;}
 	public String getZipCode(){return zipCode;}
@@ -60,7 +65,7 @@ public class Lead implements Serializable{
 	public String getEmail(){return email;}
 	
 	
-	// Getters
+	// Setters
 	public void setCompanyName(String companyName) {this.companyName = companyName;}
 	public void setAdress(String adress) {this.adress = adress;}
 	public void setZipCode(String zipCode) {this.zipCode = zipCode;}
