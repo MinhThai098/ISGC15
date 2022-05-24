@@ -42,12 +42,12 @@ public class ControllerMain {
 			
 			if (!isSuccessful) {
 				//send e-mail
-				email.sendEmail("Integration Lion error", "Could not download files from webscrapers' URL. Check the latest log file for more info");
+			//	email.sendEmail("Integration Lion error", "Could not download files from webscrapers' URL. Check the latest log file for more info");
 			}
 			
 			
-			ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
-
+		//	ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
+			ArrayList<Lead> leadList = fileManager.leadTest(); 
 			ArrayList<Lead> uniqueLeads = validator.compareLeadLists(lastWeekLeadList, leadList); 
 
 			
@@ -61,16 +61,16 @@ public class ControllerMain {
 					dolibarrConnect.importLeads(verrifiedList);
 	
 				} else {
-					email.sendEmail("", "");
+				//	email.sendEmail("", "");
 				}
 					
 			} else {
 				isSuccessful = false; 
-				email.sendEmail("", "");
+			//	email.sendEmail("", "");
 
 			}
 			
-			
+			System.out.println(isSuccessful);
 			Settings.getLeadTime++;
 		}
 		
@@ -78,7 +78,7 @@ public class ControllerMain {
 		
 		
 		dolibarrConnect.removeLead();
-
+		
 	
 	
 	}
