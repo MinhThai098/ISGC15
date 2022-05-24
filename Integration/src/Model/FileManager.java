@@ -9,6 +9,9 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -21,6 +24,86 @@ public class FileManager {
 	public FileManager(LogManager logManager) {
 
 		this.logManager = logManager;
+	}
+	
+	public ArrayList<Lead> leadTest() {
+		logManager.logInfo("Starting test...");
+
+		ArrayList <Lead> leads = new ArrayList<Lead>(); 
+		
+		URL url;
+		StringBuilder stringBuilder = null;
+
+		try {
+			url = new URL("http://localhost:3000/leadsTest");
+			HttpURLConnection http = (HttpURLConnection) url.openConnection();
+			http.setRequestProperty("Accept", "application/json");
+			http.setRequestProperty("Authorization", "Bearer " + Settings.oauth2);
+			
+			BufferedReader bufferedReader = null;
+
+			bufferedReader = new BufferedReader(new InputStreamReader(http.getInputStream()));
+									
+			stringBuilder = new StringBuilder();
+			String output;
+
+			while ((output = bufferedReader.readLine()) != null) {
+				stringBuilder.append(output);
+				}
+			
+			bufferedReader.close();
+			http.disconnect();
+
+			logManager.logInfo("Response Completed");
+
+			
+			String jsonString = stringBuilder.toString(); 
+			JSONObject obj = new JSONObject(jsonString);
+
+			JSONArray arr = obj.getJSONArray("users"); 
+			for (int i = 0; i < arr.length(); i++)
+			{
+			
+				
+			    String companyName = arr.getJSONObject(i).getString("name");
+			    String contactPerson = arr.getJSONObject(i).getString("contactPerson");
+			    String phoneNumber = arr.getJSONObject(i).getString("phoneNumber");
+			    String adress = arr.getJSONObject(i).getString("adress");
+			    String zipCode = arr.getJSONObject(i).getString("zipCode");
+			    String city = arr.getJSONObject(i).getString("city");
+			    String companySize = arr.getJSONObject(i).getString("companySize");
+			    String currentProvider = arr.getJSONObject(i).getString("currentProvider");
+			    String email = arr.getJSONObject(i).getString("email");
+			
+			    
+		
+			    Lead lead = new Lead(); 
+				
+			    lead.setCompanyName(companyName);
+				lead.setContactPerson(contactPerson);
+				lead.setCompanySize(companySize);
+				lead.setPhoneNumber(phoneNumber);
+				lead.setAdress(adress);
+				lead.setZipCode(zipCode);
+				lead.setCity(city);
+				lead.setCurrentProvider(currentProvider);
+				lead.setEmail(email);
+			   
+				
+				leads.add(lead); 
+			}
+			
+		
+		} catch (Exception e) {
+
+			System.out.println("");
+			e.printStackTrace();
+		} 
+	
+		
+		
+		logManager.logInfo(leads.size() + " leads fetched from mockoon");
+		return leads; 
 	}
 
 	// Method to retrieve the response from URL
