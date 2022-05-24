@@ -10,6 +10,7 @@ public class Settings {
 	public static int getLeadTime;
 	public static int intervalHour;
 	public static int intervalMinute;
+	public static int checkEveryHour;
 	public static String calendarDay;
 	public static String webscraperEmail;
 	public static String customerEmail;
@@ -60,6 +61,7 @@ public class Settings {
 			 getLeadTime =			Integer.parseInt(properties.getProperty("getLeadTime"));
 			 intervalHour =			Integer.parseInt(properties.getProperty("intervalHour"));
 			 intervalMinute = 		Integer.parseInt(properties.getProperty("intervalMinute"));
+			 checkEveryHour = 		Integer.parseInt(properties.getProperty("checkEveryHour"));
 			 webscraperEmail =		properties.getProperty("webscraperEmail");
 			 customerEmail = 		properties.getProperty("customerEmail");
 			 httpURL = 				properties.getProperty("httpURL");
