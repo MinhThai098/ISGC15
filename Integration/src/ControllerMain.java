@@ -33,50 +33,50 @@ public class ControllerMain {
 
 		
 		Boolean isSuccessful = false;
-		int amount = 0;
 		
 		// while loop to ensure it tries to get XML document from HTTP URL more than once.
 		while (!isSuccessful){
 			clock.checkTime();
+			
 			isSuccessful = fileManager.getUrlResponse();
 			
-			// If response from URL does not work
 			if (!isSuccessful) {
 				//send e-mail
 				email.sendEmail("Integration Lion error", "Could not download files from webscrapers' URL. Check the latest log file for more info");
 			}
+			
+			
+			ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
+
+			ArrayList<Lead> uniqueLeads = validator.compareLeadLists(lastWeekLeadList, leadList); 
+
+			
+			if(uniqueLeads.size() != 0) {
+		
+				
+				ArrayList<Lead> verrifiedList = validator.validateLeads(leadList); 
+				
+				if(verrifiedList.size() != 0) {
+				
+					dolibarrConnect.importLeads(verrifiedList);
+	
+				} else {
+					email.sendEmail("", "");
+				}
+					
+			} else {
+				isSuccessful = false; 
+				email.sendEmail("", "");
+
+			}
+			
+			
 			Settings.getLeadTime++;
 		}
 		
 		
 		
-		ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
-
-		ArrayList<Lead> uniqueLeads = validator.compareLeadLists(lastWeekLeadList, leadList); 
-
 		
-		if(uniqueLeads.size() != 0) {
-			
-			
-			ArrayList<Lead> verrifiedList = validator.validateLeads(leadList); 
-
-			
-			if(verrifiedList.size() != 0) {
-			
-				dolibarrConnect.importLeads(verrifiedList);
-
-				
-				
-			} else {
-				email.sendEmail("", "");
-			}
-			
-			
-		} else {
-			
-			email.sendEmail("", "");
-
-		}
 		dolibarrConnect.removeLead();
 
 	
