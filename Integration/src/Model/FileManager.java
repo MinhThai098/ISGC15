@@ -26,6 +26,8 @@ public class FileManager {
 		this.logManager = logManager;
 	}
 	
+	
+	// Fetches leads from localhost
 	public ArrayList<Lead> leadTest() {
 		logManager.logInfo("Starting test...");
 
