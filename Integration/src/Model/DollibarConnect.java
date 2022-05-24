@@ -97,14 +97,14 @@ public class DollibarConnect {
 				
 				statement.executeUpdate("INSERT INTO llx_societe (nom, name_alias, town, zip, address, email, phone, siren, siret, client) values "
 						+ "('"
-						+ leadList.get(i).getCompanyName()+"','"
-						+ leadList.get(i).getContactPerson()+"','"
-						+ leadList.get(i).getCity()+"','"
+						+ leadList.get(i).getCompanyName().replace("'", "''")+"','"
+						+ leadList.get(i).getContactPerson().replace("'", "''")+"','"
+						+ leadList.get(i).getCity().replace("'", "''")+"','"
 						+ leadList.get(i).getZipCode()+"','"
-						+ leadList.get(i).getAdress()+"','"
-						+ leadList.get(i).getEmail()+"','"
+						+ leadList.get(i).getAdress().replace("'", "''")+"','"
+						+ leadList.get(i).getEmail().replace("'", "''")+"','"
 						+ leadList.get(i).getPhoneNumber()+"','"
-						+ leadList.get(i).getCurrentProvider()
+						+ leadList.get(i).getCurrentProvider().replace("'", "''")
 						+"','"+ leadList.get(i).getCompanySize()
 						+"','"
 						+ 2 
