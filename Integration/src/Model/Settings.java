@@ -25,7 +25,7 @@ public class Settings {
 	public static String emailPort;
 	public static java.sql.Date currentDate;
 	public static String currentDate2; 
-
+	public static int day; 
 	
 	private LogManager logManager;
 	
@@ -73,6 +73,8 @@ public class Settings {
 			 smtp = 				properties.getProperty("stmp");
 			 port = 				properties.getProperty("port");
 			 emailPort = 			properties.getProperty("emailPort");
+			 day = 	Integer.parseInt(properties.getProperty("day")); 
+			 
 			 Date today = new Date();
 			 currentDate = new java.sql.Date(today.getTime());
 			 currentDate2 = currentDate.toString();
