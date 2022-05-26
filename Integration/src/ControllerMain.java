@@ -22,8 +22,8 @@ public class ControllerMain {
 		FileManager fileManager = new FileManager(logManager);
 		DollibarConnect dolibarrConnect = new DollibarConnect(logManager); 
 		Validator validator = new Validator(logManager); 
-		Email email = new Email(logManager); 
 		Clock clock = new Clock();
+		Email email = new Email(logManager); 
 
 		
 		String path = "config.properties";
@@ -31,7 +31,7 @@ public class ControllerMain {
 		
 		ArrayList<Lead> lastWeekLeadList = dolibarrConnect.getLeads(); 
 
-		
+
 		Boolean isSuccessful = false;
 		
 		// while loop to ensure it tries to get XML document from HTTP URL more than once.
@@ -43,7 +43,13 @@ public class ControllerMain {
 			
 			if (!isSuccessful) {
 				//send e-mail
-				email.sendEmail("Integration Lion error", "Could not download files from webscrapers' URL. Check the latest log file for more info");
+				email.sendEmail("Integration Lion error", 
+						"Could not download files from webscrapers' URL. Check the latest log file for more info",
+						Settings.customerEmail);
+				
+				email.sendEmail("Integration Lion error", 
+						"Could not download files from webscrapers' URL. Check the latest log file for more info",
+						Settings.webscraperEmail);
 			}
 			
 			
@@ -62,17 +68,31 @@ public class ControllerMain {
 				if(verrifiedList.size() != 0) {
 				
 					dolibarrConnect.importLeads(verrifiedList);
+					isSuccessful = true; 
 	
 				} else {
 					logManager.logInfo("No lead passed through validation"); 
-					email.sendEmail("Integration Lion error Error", "No lead passed through validation. Check the latest log file for more info. ");
+					
+					email.sendEmail("Integration Lion error", 
+							"No lead passed through validation. Check the latest log file for more info",
+							Settings.customerEmail);
+					
+					email.sendEmail("Integration Lion error", 
+							"No lead passed through validation. Check the latest log file for more info",
+							Settings.webscraperEmail);
+				
 				}
 					
 			} else {
 				isSuccessful = false; 
 				logManager.logInfo("No new leads were unique"); 
 
-				email.sendEmail("Integration Lion error", "No new leads were unique. Check the latest log file for more info");
+				email.sendEmail("Integration Lion error", 
+						"No new leads were unique. Check the latest log file for more info",
+						Settings.customerEmail);
+				email.sendEmail("Integration Lion error", 
+						"No new leads were unique. Check the latest log file for more info", 
+						Settings.webscraperEmail);
 
 			}
 			
