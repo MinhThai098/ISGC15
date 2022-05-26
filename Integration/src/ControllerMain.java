@@ -22,7 +22,7 @@ public class ControllerMain {
 		FileManager fileManager = new FileManager(logManager);
 		DollibarConnect dolibarrConnect = new DollibarConnect(logManager); 
 		Validator validator = new Validator(logManager); 
-	//	Email email = new Email(logManager); 
+		Email email = new Email(logManager); 
 		Clock clock = new Clock();
 
 		
@@ -43,7 +43,7 @@ public class ControllerMain {
 			
 			if (!isSuccessful) {
 				//send e-mail
-		//		email.sendEmail("Integration Lion error", "Could not download files from webscrapers' URL. Check the latest log file for more info");
+				email.sendEmail("Integration Lion error", "Could not download files from webscrapers' URL. Check the latest log file for more info");
 			}
 			
 			
@@ -65,14 +65,14 @@ public class ControllerMain {
 	
 				} else {
 					logManager.logInfo("No lead passed through validation"); 
-			//		email.sendEmail("Integration Lion error Error", "No lead passed through validation. Check the latest log file for more info. ");
+					email.sendEmail("Integration Lion error Error", "No lead passed through validation. Check the latest log file for more info. ");
 				}
 					
 			} else {
 				isSuccessful = false; 
 				logManager.logInfo("No new leads were unique"); 
 
-			//	email.sendEmail("Integration Lion error", "No new leads were unique. Check the latest log file for more info");
+				email.sendEmail("Integration Lion error", "No new leads were unique. Check the latest log file for more info");
 
 			}
 			
