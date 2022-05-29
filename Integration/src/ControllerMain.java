@@ -18,6 +18,8 @@ public class ControllerMain {
 	
 
 		LogManager logManager = new LogManager(); 
+		logManager.logInfo("Starting program");
+
 		Settings settings = new Settings(logManager);
 		FileManager fileManager = new FileManager(logManager);
 		DollibarConnect dolibarrConnect = new DollibarConnect(logManager); 
@@ -28,16 +30,22 @@ public class ControllerMain {
 		
 		String path = "config.properties";
 		settings.getSettings(path);
-		
+
 		ArrayList<Lead> lastWeekLeadList = dolibarrConnect.getLeads(); 
 
+	
+		dolibarrConnect.removeLeads();
 
 		Boolean isSuccessful = false;
 		
 		// while loop to ensure it tries to get XML document from HTTP URL more than once.
 		while (!isSuccessful){
+			
+		
+			logManager.logInfo("Waiting...");
 			clock.checkTime();
-			System.out.println("Initiating task... ");
+			logManager.logInfo("Initiating task");
+
 
 			isSuccessful = fileManager.getUrlResponse();
 			
@@ -54,8 +62,8 @@ public class ControllerMain {
 			
 			
 			ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
-		//	ArrayList<Lead> leadList = fileManager.leadTest(); 
-			
+	//		ArrayList<Lead> leadList = fileManager.leadTest(); 
+
 			
 			
 			ArrayList<Lead> uniqueLeads = validator.compareLeadLists(lastWeekLeadList, leadList); 
@@ -100,10 +108,9 @@ public class ControllerMain {
 			Settings.getLeadTime++;
 		}
 		
+		logManager.logInfo("Closing program");
+
 		
-		
-		
-		dolibarrConnect.removeLead();
 		
 	
 	

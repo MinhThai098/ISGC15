@@ -129,12 +129,12 @@ public class DollibarConnect {
 	 * The method is logging when successful and also when failed to remove a lead
 	 * */
 
-	public void removeLead() {
+	public void removeLeads() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dolibarr",Settings.dbName, Settings.dbPassword);
+			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+Settings.port+"/dolibarr",Settings.dbName, Settings.dbPassword);
 			Statement stmtDelete = con.createStatement();
-			stmtDelete.executeUpdate("DELETE FROM `llx_societe` where `client` = '0'");
+			stmtDelete.executeUpdate("DELETE FROM `llx_societe` where `client` = '2'");
 			con.close();
 			logManager.logInfo(" leads with status not a client is removed.");
 			
