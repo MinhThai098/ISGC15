@@ -70,7 +70,7 @@ public class Settings {
 			 dbPassword = 			properties.getProperty("dbPassword");
 			 userEmail =			properties.getProperty("userEmail");
 			 userPassword =			properties.getProperty("userPassword");
-			 smtp = 				properties.getProperty("stmp");
+			 smtp = 				properties.getProperty("smtp");
 			 port = 				properties.getProperty("port");
 			 emailPort = 			properties.getProperty("emailPort");
 			 day = 	Integer.parseInt(properties.getProperty("day")); 

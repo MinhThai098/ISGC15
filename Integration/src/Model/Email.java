@@ -21,7 +21,7 @@ public class Email {
 		this.logManager = logManager; 
 	}
 	
-	public void sendEmail(String title, String content, String toEmail) {
+	public void sendEmail(String title, String content, String sendTo) {
 		try {
 		
 		//  final String user="integrationlion2022@gmail.com";
@@ -37,12 +37,11 @@ public class Email {
 			
 		Properties properties = System.getProperties();
 
-        properties.put("mail.smtp.host", Settings.smtp);
-        properties.put("mail.smtp.port", Settings.emailPort);
-        properties.put("mail.smtp.starttls.enable", "true"); //TLS
-        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        properties.put("mail.smtp.auth", "true");
-
+		 properties.put("mail.smtp.host", Settings.smtp);
+         properties.put("mail.smtp.port", Settings.emailPort);
+         properties.put("mail.smtp.starttls.enable", "true"); //TLS
+         properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+         properties.put("mail.smtp.auth", "true");
 
 		//creating a sessions to create the request and response between the client and server.
 		//and authentication of which email address to use and the password for that address
@@ -58,12 +57,12 @@ public class Email {
 		 */
 		MimeMessage message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(Settings.userEmail));  
-	    message.addRecipient(Message.RecipientType.TO,new InternetAddress(toEmail));  
+	    message.addRecipient(Message.RecipientType.TO,new InternetAddress(sendTo));  
 	    message.setSubject(title);  
 	    message.setText(content);
 
 	    Transport.send(message);
-		logManager.logInfo("Message sent to: " + Settings.userEmail);
+		logManager.logInfo("Message sent to: " + sendTo);
 		}catch(Exception e) {
 			
 			e.printStackTrace();
