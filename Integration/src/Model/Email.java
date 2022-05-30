@@ -24,9 +24,6 @@ public class Email {
 	public void sendEmail(String title, String content, String sendTo) {
 		try {
 		
-		//  final String user="integrationlion2022@gmail.com";
-		// final String password="Lion2022"; 
-
 		/*
 		 * Setting properties for the email connection
 		 * - Dns name of a server that accept a specific port

@@ -31,16 +31,18 @@ public class LogManager {
 			SimpleFormatter formatter = new SimpleFormatter(); 
 			fileHandler.setFormatter(formatter);
 			
-			
+	
 		} catch (Exception e) {
+
 			System.out.println(e.getMessage());	
 		}
 	}
 	
 	// write an info message to log
 	public void logInfo(String text) {
-	
+
 		logger.info(text);
+
 		
 	}
 	
@@ -48,6 +50,9 @@ public class LogManager {
 	public void logError(String text) {
 		
 		logger.severe(text);
+
 	}
+
+
 	
 }

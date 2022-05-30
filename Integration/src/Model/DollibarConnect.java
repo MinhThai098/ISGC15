@@ -134,7 +134,7 @@ public class DollibarConnect {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+Settings.port+"/dolibarr",Settings.dbName, Settings.dbPassword);
 			Statement stmtDelete = con.createStatement();
-			stmtDelete.executeUpdate("DELETE FROM `llx_societe` where `client` = '2'");
+			stmtDelete.executeUpdate("DELETE FROM `llx_societe` where `client` = '0'");
 			con.close();
 			logManager.logInfo(" leads with status not a client is removed.");
 			
@@ -143,6 +143,26 @@ public class DollibarConnect {
 			e.printStackTrace();
 			logManager.logInfo("Failed to remove the lead" + e.getMessage());
 		}
+	}
+	
+	// Removing leads (not used, only for demo)
+	public void removeAllLeads() {
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:"+Settings.port+"/dolibarr",Settings.dbName, Settings.dbPassword);
+			Statement stmtDelete = con.createStatement();
+			stmtDelete.executeUpdate("DELETE FROM `llx_societe` where `client` = '2'");
+			con.close();
+			logManager.logInfo(" All leads removed.");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logManager.logInfo("Failed to remove the lead" + e.getMessage());
+		}
+		
+		
 	}
 	
 }
