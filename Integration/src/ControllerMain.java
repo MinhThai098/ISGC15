@@ -33,8 +33,7 @@ public class ControllerMain {
 
 		ArrayList<Lead> lastWeekLeadList = dolibarrConnect.getLeads(); 
 
-	
-		
+
 		Boolean isSuccessful = false;
 		
 		// while loop to ensure it tries to get XML document from HTTP URL more than once.
@@ -60,8 +59,8 @@ public class ControllerMain {
 			}
 			
 			
-	//		ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
-			ArrayList<Lead> leadList = fileManager.leadTest(); 
+			ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
+	//		ArrayList<Lead> leadList = fileManager.leadTest(); 
 
 
 			ArrayList<Lead> verrifiedList = validator.validateLeads(leadList); 
