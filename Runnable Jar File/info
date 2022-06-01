@@ -1,0 +1,8 @@
+Lion Integration
+Huvudprogrammet som kunden kommer använda
+
+Lion Demo
+En demoversion som hämtar leads from localhost. Kräver mockoon eller liknande. 
+
+Delete All Leads
+Tar bort alla leads från dolibarr
