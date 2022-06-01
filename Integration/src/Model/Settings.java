@@ -11,7 +11,6 @@ public class Settings {
 	public static int intervalHour;
 	public static int intervalMinute;
 	public static int checkEveryHour;
-	public static String calendarDay;
 	public static String webscraperEmail;
 	public static String customerEmail;
 	public static String httpURL;
