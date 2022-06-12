@@ -60,25 +60,27 @@ public class ControllerMain {
 			}
 			
 			
-			ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
-	//		ArrayList<Lead> leadList = fileManager.leadTest(); 
+	//		ArrayList<Lead> leadList = fileManager.getLeadsFromXML();
+			ArrayList<Lead> leadList = fileManager.leadTest(); 
 
-			
-			
-			ArrayList<Lead> uniqueLeads = validator.compareLeadLists(lastWeekLeadList, leadList); 
+
+			ArrayList<Lead> verrifiedList = validator.validateLeads(leadList); 
+			ArrayList<Lead> uniqueLeads = validator.compareLeadLists(lastWeekLeadList, verrifiedList); 
 
 			
 			if(uniqueLeads.size() != 0) {
 		
-				ArrayList<Lead> verrifiedList = validator.validateLeads(uniqueLeads); 
 				
 				if(verrifiedList.size() != 0) {
 				
-					dolibarrConnect.importLeads(verrifiedList);
+					dolibarrConnect.importLeads(uniqueLeads);
 					dolibarrConnect.removeLeads();
 					isSuccessful = true; 
 	
 				} else {
+					
+					isSuccessful = false; 
+
 					logManager.logInfo("No lead passed through validation"); 
 					
 					email.sendEmail("Integration Lion error", 
