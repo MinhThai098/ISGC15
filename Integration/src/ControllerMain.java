@@ -34,8 +34,7 @@ public class ControllerMain {
 		ArrayList<Lead> lastWeekLeadList = dolibarrConnect.getLeads(); 
 
 	
-		dolibarrConnect.removeLeads();
-
+		
 		Boolean isSuccessful = false;
 		
 		// while loop to ensure it tries to get XML document from HTTP URL more than once.
@@ -71,11 +70,12 @@ public class ControllerMain {
 			
 			if(uniqueLeads.size() != 0) {
 		
-				ArrayList<Lead> verrifiedList = validator.validateLeads(leadList); 
+				ArrayList<Lead> verrifiedList = validator.validateLeads(uniqueLeads); 
 				
 				if(verrifiedList.size() != 0) {
 				
 					dolibarrConnect.importLeads(verrifiedList);
+					dolibarrConnect.removeLeads();
 					isSuccessful = true; 
 	
 				} else {
